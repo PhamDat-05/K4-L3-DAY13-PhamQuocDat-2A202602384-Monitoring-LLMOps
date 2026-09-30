@@ -1,0 +1,17 @@
+﻿baseline: correlation_id=req-33ae5709 trace_id=1a6727804630ad307795eb318dbefd53 root_ms=152.0 retrieval_ms=0.0 generation_ms=152.0 prompt=day13-chat v1 tokens={'input': 36, 'output': 120, 'total': 156} cost_usd=0.001908
+baseline: correlation_id=req-32d19cb8 trace_id=ac41aba4f1315f5ce9c15c6faaa7bc9a root_ms=976.0 retrieval_ms=0.0 generation_ms=151.0 prompt=day13-chat v1 tokens={'input': 35, 'output': 157, 'total': 192} cost_usd=0.00246
+baseline: correlation_id=req-85486c42 trace_id=de8fd31f7277b498ffa65307eb6cd81a root_ms=153.0 retrieval_ms=0.0 generation_ms=153.0 prompt=day13-chat v1 tokens={'input': 35, 'output': 83, 'total': 118} cost_usd=0.00135
+baseline: correlation_id=req-bb4c18dc trace_id=72575de97558ab8784f3632c56bcf5c1 root_ms=153.0 retrieval_ms=0.0 generation_ms=153.0 prompt=day13-chat v1 tokens={'input': 34, 'output': 145, 'total': 179} cost_usd=0.002277
+baseline: correlation_id=req-9b134c1d trace_id=07a561cdc5be1eaf42f68bd10aaee6b9 root_ms=153.0 retrieval_ms=1.0 generation_ms=152.0 prompt=day13-chat v1 tokens={'input': 35, 'output': 144, 'total': 179} cost_usd=0.002265
+incident: correlation_id=req-cf6b725c trace_id=f2436bd213a6d402947c31faf387cbe5 root_ms=2652.0 retrieval_ms=2501.0 generation_ms=151.0 prompt=day13-chat v1 tokens={'input': 35, 'output': 108, 'total': 143} cost_usd=0.001725
+incident: correlation_id=req-63d46036 trace_id=6c6b484dd068f5152f73e12a47a56c91 root_ms=2653.0 retrieval_ms=2502.0 generation_ms=151.0 prompt=day13-chat v1 tokens={'input': 34, 'output': 85, 'total': 119} cost_usd=0.001377
+incident: correlation_id=req-85ac71d3 trace_id=827d5fa00b826d48105d40df6c5ce796 root_ms=2653.0 retrieval_ms=2501.0 generation_ms=152.0 prompt=day13-chat v1 tokens={'input': 35, 'output': 158, 'total': 193} cost_usd=0.002475
+incident: correlation_id=req-209de421 trace_id=c2cfd19c2e4c0c09e437bb1cd8ccfd8f root_ms=2653.0 retrieval_ms=2501.0 generation_ms=151.0 prompt=day13-chat v1 tokens={'input': 36, 'output': 85, 'total': 121} cost_usd=0.001383
+incident: correlation_id=req-7bffe780 trace_id=f8fe8dd451fdf4ba4754f0cfc3fe369f root_ms=2653.0 retrieval_ms=2500.0 generation_ms=151.0 prompt=day13-chat v1 tokens={'input': 35, 'output': 91, 'total': 126} cost_usd=0.00147
+Project: day13-k4-l3b-2A202602384
+Retrieval P95: baseline=1.0 ms incident=2502.0 ms
+Representative: correlation_id=req-cf6b725c trace_id=f2436bd213a6d402947c31faf387cbe5
+  lab-agent-run: id=88e7bc44b0222f5e parent=None type=AGENT duration_ms=2652.0 level=DEFAULT
+  retrieval: id=231f9a48218d8f37 parent=88e7bc44b0222f5e type=RETRIEVER duration_ms=2501.0 level=DEFAULT
+  generation: id=df18e952006c161e parent=88e7bc44b0222f5e type=GENERATION duration_ms=151.0 level=DEFAULT
+Trace URL: https://cloud.langfuse.com/project/cmunixfu607wfad0clkugh1wb/traces/f2436bd213a6d402947c31faf387cbe5

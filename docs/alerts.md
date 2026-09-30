@@ -1,60 +1,27 @@
-# Template Alert và Runbook
+# Alert và runbook
 
-Mỗi alert phải dựa trên triệu chứng người dùng hoặc SLO, không dựa trực tiếp vào tên implementation nội bộ.
-
-## Alert mẫu để tham khảo
-
-Ví dụ dưới đây minh họa mức độ cụ thể cần có. Học viên không cần copy nguyên, nhưng ba alert trong bài nộp nên rõ ràng tương tự: điều kiện là gì, kéo dài bao lâu, ảnh hưởng tới user ra sao và người trực cần kiểm tra gì trước.
-
-- Tên: `HighLatencyP95`
-- Severity: `warning`
-- Duration: `5m`
-- Kênh thông báo: Slack `#k4-l3b-alerts`
-- SLI/SLO liên quan: latency P95 của `response_sent.latency_ms`
-- Điều kiện và thời gian duy trì: `p95(latency_ms) > 3000ms` trong 5 phút
-- Ảnh hưởng tới người dùng: người dùng phải chờ lâu hơn trước khi nhận câu trả lời
-- Ba bước kiểm tra đầu tiên:
-  1. Mở dashboard latency để xác nhận P95/P99 và khoảng thời gian tăng.
-  2. Lọc `data/logs.jsonl` trong khoảng đó, lấy một `correlation_id` có `latency_ms` cao.
-  3. Mở trace cùng `correlation_id` trên Langfuse, so sánh các span chính để xác định bước nào bất thường.
-- Mitigation tạm thời: dựa trên evidence thực tế để rollback prompt, khôi phục cấu hình liên quan, tắt practice scenario hoặc giảm tải khi demo.
-- Owner: `student-<MSSV>`
+Ba điều kiện trong [alert_rules.yaml](../config/alert_rules.yaml) được tính từ `data/logs.jsonl` trên cửa sổ trượt 5 phút; chỉ đánh giá khi có ít nhất một `request_received`. `duration: 5m` nghĩa là triệu chứng phải duy trì 5 phút liên tục. Kênh cảnh báo là Slack `#k4-l3b-alerts`, người phụ trách `student-2A202602384`.
 
 ## Alert 1
 
-- Tên:
-- Severity:
-- Duration:
-- Kênh thông báo: Slack
-- SLI/SLO liên quan:
-- Điều kiện và thời gian duy trì:
-- Ảnh hưởng tới người dùng:
-- Ba bước kiểm tra đầu tiên:
-- Mitigation tạm thời:
-- Owner:
+- **HighLatencyP95**, warning: P95 của `response_sent.latency_ms` > 2000 ms trong 5 phút. Đây là cảnh báo sớm trước ngưỡng SLO 3000 ms để nhận ra suy giảm latency khi request vẫn thành công. Người dùng nhận câu trả lời chậm.
+- Mở panel Latency, xác định P95/P99, TTFT P95 và khoảng thời gian tăng.
+- Lọc `response_sent` trong khoảng đó, lấy `correlation_id` của request chậm; so sánh với `request_received` cùng ID.
+- Mở trace Langfuse theo `correlation_id`, so thời gian `retrieval` và `generation` để xác định bước gây chậm.
+- **Mitigation:** nếu generation dài do prompt mới, đưa label `production` về version ổn định; nếu retrieval chậm trong challenge, tắt incident bằng `scripts/inject_incident.py --disable` sau khi lưu evidence. Trong vận hành thật, khôi phục dịch vụ retrieval sau khi xác nhận nguyên nhân. Nếu request đồng thời bị xếp hàng vì truy xuất đồng bộ đang chặn event loop, chuyển lời gọi blocking sang threadpool hoặc async client và kiểm thử tải trước khi phát hành.
 
 ## Alert 2
 
-- Tên:
-- Severity:
-- Duration:
-- Kênh thông báo: Slack
-- SLI/SLO liên quan:
-- Điều kiện và thời gian duy trì:
-- Ảnh hưởng tới người dùng:
-- Ba bước kiểm tra đầu tiên:
-- Mitigation tạm thời:
-- Owner:
+- **HighRequestErrorRate**, critical: `request_failed / request_received > 2%` trong 5 phút. Người dùng không nhận câu trả lời; vi phạm phần thành công của SLO.
+- Mở panel Errors, xác nhận error rate và breakdown theo `error_type` trong khoảng cảnh báo.
+- Lọc log `request_failed`, lấy một `correlation_id`, `error_type` và `tool_name`.
+- Mở trace cùng ID, xem observation nào có trạng thái ERROR và đối chiếu với error type trong log.
+- **Mitigation:** nếu lỗi ở retrieval, khôi phục vector store hoặc tắt `tool_fail` practice sau khi thu evidence; nếu lỗi ở generation, rollback prompt hoặc cấu hình mới gây lỗi. Gửi cập nhật vào cùng kênh Slack.
 
 ## Alert 3
 
-- Tên:
-- Severity:
-- Duration:
-- Kênh thông báo: Slack
-- SLI/SLO liên quan:
-- Điều kiện và thời gian duy trì:
-- Ảnh hưởng tới người dùng:
-- Ba bước kiểm tra đầu tiên:
-- Mitigation tạm thời:
-- Owner:
+- **LowRetrievalSuccess**, warning: tỷ lệ `tool_success == true` trên các request có `tool_name == retrieval` < 90% trong 5 phút. Người dùng mất context hoặc gặp lỗi khi truy xuất; liên quan guardrail `retrieval_success_rate_pct_min`.
+- Mở panel Errors để xác nhận retrieval success giảm cùng thời điểm, kiểm tra breakdown lỗi.
+- Lọc log `tool_name == retrieval` và `tool_success == false`, lấy `correlation_id` và thời gian.
+- Mở trace cùng ID, xem observation `retrieval` và đối chiếu với generation; kiểm tra health của vector store.
+- **Mitigation:** khôi phục backend retrieval hoặc dùng fallback đã được kiểm chứng; trong practice, tắt `tool_fail` sau khi lưu evidence. Xác nhận tỷ lệ phục hồi trên dashboard trước khi đóng alert.

@@ -45,7 +45,7 @@ def resolve_prompt(
                 label=label,
                 type="text",
                 fallback=DEFAULT_PROMPT_TEMPLATE,
-                cache_ttl_seconds=60,
+                cache_ttl_seconds=int(os.getenv("LANGFUSE_PROMPT_CACHE_TTL_SECONDS", "60")),
                 fetch_timeout_seconds=2,
                 max_retries=0,
             )

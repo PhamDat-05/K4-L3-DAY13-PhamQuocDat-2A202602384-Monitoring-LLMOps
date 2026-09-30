@@ -1,0 +1,12 @@
+﻿Challenge ID: day13-k4-l3b-monitoring-llmops-v1 | cohort: K4 | affected feature: monitoring
+Latency threshold from coach's challenge: 2000 ms
+baseline: window_utc=2026-09-30T03:55:05.223771Z..2026-09-30T03:55:06.976275Z requests=5 responses=5 errors=0 above_2000ms=0/5 latency_p50_ms=152 latency_p95_ms=975 latency_p99_ms=975 ttft_p95_ms=50 avg_cost_usd=0.002052
+incident: window_utc=2026-09-30T03:55:21.892044Z..2026-09-30T03:55:35.170160Z requests=5 responses=5 errors=0 above_2000ms=5/5 latency_p50_ms=2652 latency_p95_ms=2652 latency_p99_ms=2652 ttft_p95_ms=50 avg_cost_usd=0.001686
+recovery: window_utc=2026-09-30T03:59:10.339664Z..2026-09-30T03:59:12.095113Z requests=5 responses=5 errors=0 above_2000ms=0/5 latency_p50_ms=152 latency_p95_ms=914 latency_p99_ms=914 ttft_p95_ms=50 avg_cost_usd=0.002163
+P95 change: +1677 ms (2.72x)
+P95 after disabling incident: 914 ms (1738 ms lower than incident)
+incident_log: ts=2026-09-30T03:55:24.545965Z correlation_id=req-cf6b725c latency_ms=2652 ttft_ms=50 trace_id=f2436bd213a6d402947c31faf387cbe5 tool_success=True
+incident_log: ts=2026-09-30T03:55:27.201010Z correlation_id=req-63d46036 latency_ms=2652 ttft_ms=50 trace_id=6c6b484dd068f5152f73e12a47a56c91 tool_success=True
+incident_log: ts=2026-09-30T03:55:29.857347Z correlation_id=req-85ac71d3 latency_ms=2652 ttft_ms=50 trace_id=827d5fa00b826d48105d40df6c5ce796 tool_success=True
+incident_log: ts=2026-09-30T03:55:32.512755Z correlation_id=req-209de421 latency_ms=2652 ttft_ms=50 trace_id=c2cfd19c2e4c0c09e437bb1cd8ccfd8f tool_success=True
+incident_log: ts=2026-09-30T03:55:35.170160Z correlation_id=req-7bffe780 latency_ms=2652 ttft_ms=50 trace_id=f8fe8dd451fdf4ba4754f0cfc3fe369f tool_success=True

@@ -8,7 +8,7 @@ REQUIRED_FIELDS = {"ts", "level", "service", "event", "correlation_id"}
 ENRICHMENT_FIELDS = {"user_id_hash", "session_id", "feature", "model"}
 PII_DETECTORS = {
     "email": re.compile(r"[\w.-]+@[\w.-]+\.\w+"),
-    "phone_vn": re.compile(r"(?<!\d)(?:\+84|0)(?:[ .-]?\d){9}(?!\d)"),
+    "phone_vn": re.compile(r"(?<![A-Za-z0-9])(?:\+84|0)(?:[ .-]?\d){9}(?![A-Za-z0-9])"),
     "cccd": re.compile(r"\b\d{12}\b"),
     "credit_card": re.compile(r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b"),
 }

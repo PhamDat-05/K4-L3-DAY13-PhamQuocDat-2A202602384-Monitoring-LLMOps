@@ -1,5 +1,7 @@
 # Evidence cá nhân
 
+Các ảnh cần chụp trực tiếp từ project Langfuse cá nhân, tên file và nội dung bắt buộc: [CAPTURE_LANGFUSE.md](CAPTURE_LANGFUSE.md). Evidence CP1–CP3 đã tạo sẵn trong thư mục này; `config/challenge.json` không được sao chép vào đây.
+
 Đặt ảnh hoặc output text dùng để chấm vào thư mục này. Danh sách đầy đủ xem tại [docs/SUBMISSION.md](../../docs/SUBMISSION.md).
 
 Tên file gợi ý:

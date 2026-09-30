@@ -1,0 +1,41 @@
+﻿[
+    {
+        "service":  "api",
+        "payload":  {
+                        "message_preview":  "What is your refund policy? My email is [REDACTED_EMAIL]"
+                    },
+        "event":  "request_received",
+        "correlation_id":  "req-93fdd186",
+        "user_id_hash":  "2055254ee30a",
+        "feature":  "qa",
+        "env":  "dev",
+        "model":  "claude-sonnet-4-5",
+        "session_id":  "s01",
+        "level":  "info",
+        "ts":  "2026-09-30T03:26:13.103551Z"
+    },
+    {
+        "service":  "api",
+        "latency_ms":  456,
+        "ttft_ms":  50,
+        "tokens_in":  36,
+        "tokens_out":  139,
+        "cost_usd":  0.002193,
+        "quality_score":  0.9,
+        "trace_id":  "91d763ab8ef05b5315e2ccce2802c59a",
+        "tool_name":  "retrieval",
+        "tool_success":  true,
+        "payload":  {
+                        "answer_preview":  "Starter answer. You should improve this output logic and add better quality chec..."
+                    },
+        "event":  "response_sent",
+        "correlation_id":  "req-93fdd186",
+        "user_id_hash":  "2055254ee30a",
+        "feature":  "qa",
+        "env":  "dev",
+        "model":  "claude-sonnet-4-5",
+        "session_id":  "s01",
+        "level":  "info",
+        "ts":  "2026-09-30T03:26:13.564733Z"
+    }
+]

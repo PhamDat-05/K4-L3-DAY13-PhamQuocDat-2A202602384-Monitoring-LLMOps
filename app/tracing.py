@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 from contextlib import contextmanager
+from contextlib import nullcontext
 from typing import Any
 
 try:
@@ -24,6 +25,9 @@ except ImportError:  # pragma: no cover - chỉ dùng khi chưa cài requirement
         def update_current_generation(self, **kwargs: Any) -> None:
             return None
 
+        def start_as_current_observation(self, **kwargs: Any):
+            return nullcontext(_NoopObservation())
+
     def get_client():
         return _DummyClient()
 
@@ -40,3 +44,14 @@ def tracing_enabled() -> bool:
     return LANGFUSE_SDK_AVAILABLE and bool(
         os.getenv("LANGFUSE_PUBLIC_KEY") and os.getenv("LANGFUSE_SECRET_KEY")
     )
+
+
+class _NoopObservation:
+    def update(self, **kwargs: Any) -> None:
+        return None
+
+
+def start_observation(client: Any, **kwargs: Any):
+    """Keep unit tests and offline runs usable without a live tracing client."""
+    start = getattr(client, "start_as_current_observation", None)
+    return start(**kwargs) if start is not None else nullcontext(_NoopObservation())

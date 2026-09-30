@@ -52,3 +52,5 @@ Không chấm prompt nào “hay hơn”. Điểm nằm ở khả năng truy xu�
 - Hai trace ID chứng minh hai version/label khác nhau.
 - Một ảnh trước/sau khi đổi label hoặc rollback `production`.
 - Ghi các ID và đường dẫn ảnh vào `submission/REPORT.md`.
+
+Trong repo này, `python scripts/cp2_prompt_demo.py` tự tạo v1/v2 khi chưa có, chạy cùng sample query với hai label, promote rồi rollback `production`, và gửi thêm workload để có ít nhất 10 trace. Script thay đổi labels trong project Langfuse đang cấu hình ở `.env`; nó để `production` trở lại baseline sau khi kết thúc. `python scripts/verify_cp2.py` đọc trace IDs trong `submission/evidence/09-10-prompt-workflow.txt` và xác minh cây observation, prompt link, token/cost qua Langfuse API. Output API text là evidence có thể kiểm chứng; vẫn cần ảnh UI theo `docs/SUBMISSION.md` trước khi nộp chính thức.

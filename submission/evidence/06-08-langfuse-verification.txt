@@ -1,0 +1,17 @@
+﻿baseline: 91d763ab8ef05b5315e2ccce2802c59a / req-93fdd186 / prompt v1 label=baseline / root>retrieval+generation OK
+Generation model=claude-sonnet-4-5, usage={'input': 36, 'output': 139, 'total': 175}, cost_usd=0.002193, prompt_name=day13-chat
+candidate: e401adb14ea0a97c0ce66e76eb82d361 / req-72868a58 / prompt v2 label=candidate / root>retrieval+generation OK
+production-promoted: f4b6afcd285c4ff7e322f7646a5823f6 / req-88ba7174 / prompt v2 label=production / root>retrieval+generation OK
+production-rollback: 77780130a307b2407d6c408f8a1ed358 / req-e3978701 / prompt v1 label=production / root>retrieval+generation OK
+production: 6c4df65c65d4eba7f7a3e7fb0e476e83 / req-187d4a81 / prompt v1 label=production / root>retrieval+generation OK
+production: 7dfbdeee9634931565cb02bac6cca0a5 / req-a1d518de / prompt v1 label=production / root>retrieval+generation OK
+production: 19db97916b4c23844dc9701a22362430 / req-5ca1d3ce / prompt v1 label=production / root>retrieval+generation OK
+production: 94b852fd8de8fd097f9855b8b1e10204 / req-4d0861cd / prompt v1 label=production / root>retrieval+generation OK
+production: 9b895902668f036b9b2c59e29343dae8 / req-2e6ebcaf / prompt v1 label=production / root>retrieval+generation OK
+production: 154d37a3c395e9a6dc7288d5d3f62e1c / req-f8dac2b2 / prompt v1 label=production / root>retrieval+generation OK
+production: 9a2bb7790250327a98225cfe8288dedf / req-160f27e3 / prompt v1 label=production / root>retrieval+generation OK
+production: 756b0fdae2e1eb49eb9202e29b72975a / req-cf9d5187 / prompt v1 label=production / root>retrieval+generation OK
+production: b57d33bfc95e1bc807d8f5d778f49bf2 / req-4d4a09fc / prompt v1 label=production / root>retrieval+generation OK
+Project: day13-k4-l3b-2A202602384
+Example trace URL: https://cloud.langfuse.com/project/cmunixfu607wfad0clkugh1wb/traces/91d763ab8ef05b5315e2ccce2802c59a
+Verified Langfuse traces: 13

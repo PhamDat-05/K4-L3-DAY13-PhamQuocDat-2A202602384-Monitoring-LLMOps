@@ -1,0 +1,17 @@
+﻿Prompt day13-chat: baseline v1; candidate v2
+label=baseline correlation_id=req-93fdd186 trace_id=91d763ab8ef05b5315e2ccce2802c59a
+label=candidate correlation_id=req-72868a58 trace_id=e401adb14ea0a97c0ce66e76eb82d361
+Promoted production -> v2
+label=production-promoted correlation_id=req-88ba7174 trace_id=f4b6afcd285c4ff7e322f7646a5823f6
+Rolled back production -> v1
+label=production-rollback correlation_id=req-e3978701 trace_id=77780130a307b2407d6c408f8a1ed358
+label=production correlation_id=req-187d4a81 trace_id=6c4df65c65d4eba7f7a3e7fb0e476e83
+label=production correlation_id=req-a1d518de trace_id=7dfbdeee9634931565cb02bac6cca0a5
+label=production correlation_id=req-5ca1d3ce trace_id=19db97916b4c23844dc9701a22362430
+label=production correlation_id=req-4d0861cd trace_id=94b852fd8de8fd097f9855b8b1e10204
+label=production correlation_id=req-2e6ebcaf trace_id=9b895902668f036b9b2c59e29343dae8
+label=production correlation_id=req-f8dac2b2 trace_id=154d37a3c395e9a6dc7288d5d3f62e1c
+label=production correlation_id=req-160f27e3 trace_id=9a2bb7790250327a98225cfe8288dedf
+label=production correlation_id=req-cf9d5187 trace_id=756b0fdae2e1eb49eb9202e29b72975a
+label=production correlation_id=req-4d4a09fc trace_id=b57d33bfc95e1bc807d8f5d778f49bf2
+Flushed traces to Langfuse

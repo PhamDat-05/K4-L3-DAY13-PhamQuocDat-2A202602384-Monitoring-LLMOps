@@ -6,6 +6,8 @@ Trường `query` trong YAML là pseudocode mô tả phép tính, không phải 
 
 Lab không bắt buộc một công cụ dashboard cụ thể. Bạn có thể dùng Streamlit, notebook, Grafana, script local tạo biểu đồ hoặc công cụ tương đương. Điều quan trọng khi chấm là dashboard runtime có dữ liệu thật từ `data/logs.jsonl`, đủ sáu panel, đọc được time range/đơn vị/threshold và khớp logic trong `config/dashboard.yaml`.
 
+Repo đã có dashboard runtime tại `/dashboard` và API tổng hợp tại `/dashboard-data`. Chạy `uvicorn app.main:app --env-file .env`, mở `http://127.0.0.1:8000/dashboard`, rồi chạy sample workload. Dashboard đọc log JSONL hiện tại và refresh mỗi 30 giây. Ảnh evidence CP2 nằm trong `submission/evidence/11-dashboard-overview.png`.
+
 ## Mapping dữ liệu
 
 | Panel | Event/field | Phép tổng hợp |
