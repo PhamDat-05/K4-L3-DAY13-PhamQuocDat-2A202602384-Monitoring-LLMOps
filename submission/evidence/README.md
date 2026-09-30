@@ -16,7 +16,8 @@ Tên file gợi ý:
 07-trace-waterfall.png
 08-trace-metadata.png
 09-prompt-versions.png
-10-prompt-rollback.png
+10a-prompt-promoted.png
+10b-prompt-rollback.png
 11-dashboard-overview.png
 12-incident-metric.png
 13-incident-log.png

@@ -6,7 +6,8 @@
 - **MSSV:** 2A202602384
 - **Lớp:** K4-L3B
 - **Repository URL:** https://github.com/PhamDat-05/K4-L3-DAY13-PhamQuocDat-2A202602384-Monitoring-LLMOps
-- **Commit SHA cuối:** chưa chốt; cần điền sau khi commit toàn bộ source và evidence.
+- **Commit SHA nguồn CP1–CP3 đã kiểm thử:** `d97c9462606e90e395026534e5da9705c94b667d`.
+- **Commit SHA cuối để chấm:** lấy từ `git rev-parse HEAD` sau khi push nhánh `main` và nộp cùng URL repo trên LMS/Codelabs; SHA của chính commit không thể tự ghi vào nội dung commit đó.
 - **Challenge ID:** `day13-k4-l3b-monitoring-llmops-v1` (file riêng của Lab Coach được giữ trong `.gitignore`, không nộp file).
 - **Project Langfuse cá nhân:** `day13-k4-l3b-2A202602384`, xác nhận bằng API của project trong evidence CP2.
 
@@ -20,16 +21,16 @@
 | Dashboard validator | [03-dashboard-validator.txt](evidence/03-dashboard-validator.txt) |
 | Hai log JSON cùng correlation ID | [04-structured-log.png](evidence/04-structured-log.png), [JSON](evidence/04-structured-log.json) |
 | Email, điện thoại, thẻ giả đã redacted | [05-pii-redaction.png](evidence/05-pii-redaction.png), [JSON](evidence/05-pii-redaction.json) |
-| 13 trace thật, cây observations và metadata được đọc lại qua Langfuse API | [06-08-langfuse-verification.txt](evidence/06-08-langfuse-verification.txt) |
-| Prompt v1/v2, promote/rollback và trace ID của từng trạng thái | [09-10-prompt-workflow.txt](evidence/09-10-prompt-workflow.txt) |
+| Danh sách trace, cây observations, metadata và đối chiếu API | [06-trace-list.png](evidence/06-trace-list.png), [07-trace-waterfall.png](evidence/07-trace-waterfall.png), [08-trace-metadata.png](evidence/08-trace-metadata.png), [API verification](evidence/06-08-langfuse-verification.txt) |
+| Prompt v1/v2, promote/rollback và trace ID của từng trạng thái | [09-prompt-versions.png](evidence/09-prompt-versions.png), [10a-prompt-promoted.png](evidence/10a-prompt-promoted.png), [10b-prompt-rollback.png](evidence/10b-prompt-rollback.png), [workflow](evidence/09-10-prompt-workflow.txt) |
 | Dashboard runtime 6 panel | [11-dashboard-overview.png](evidence/11-dashboard-overview.png) |
 | Incident: baseline, injection, workload và recovery | [12a-baseline](evidence/12a-challenge-baseline.txt), [12b-injection](evidence/12b-challenge-injection.txt), [12c-load](evidence/12c-challenge-load.txt), [12d-disabled](evidence/12d-challenge-disabled.txt), [12e-recovery](evidence/12e-challenge-recovery.txt) |
 | Incident metrics | [12-incident-metric.png](evidence/12-incident-metric.png), [số đo theo ba giai đoạn](evidence/12-incident-metrics.txt) |
 | Incident log cùng correlation ID | [13-incident-log.png](evidence/13-incident-log.png), [JSON đã lọc](evidence/13-incident-log.json) |
-| Incident trace Langfuse được API xác minh | [14-incident-trace-verification.txt](evidence/14-incident-trace-verification.txt); ảnh UI `14-incident-trace.png` chờ chụp. |
-| Rà soát file chuẩn bị nộp | [15-submission-scan.txt](evidence/15-submission-scan.txt): kiểm tra đường dẫn cấm, key Langfuse và nội dung query riêng của challenge. |
+| Incident trace có cùng correlation ID và span retrieval gây chậm | [14-incident-trace.png](evidence/14-incident-trace.png), [API verification](evidence/14-incident-trace-verification.txt) |
+| Rà soát file chuẩn bị nộp | [15a-challenge-query-scan.txt](evidence/15a-challenge-query-scan.txt): quét trước khi thêm ảnh; [15-submission-scan.txt](evidence/15-submission-scan.txt): quét tất cả file chuẩn bị nộp sau khi thêm ảnh, gồm key và query riêng của challenge. Các ảnh được xem trực tiếp để kiểm tra thông tin hiển thị. |
 
-Evidence `06–10` và `14` hiện là output API đọc trực tiếp từ project cá nhân, chưa phải ảnh giao diện Langfuse. Danh sách ảnh `.png` cần chụp từ UI, nội dung bắt buộc và đúng tên file nằm tại [CAPTURE_LANGFUSE.md](evidence/CAPTURE_LANGFUSE.md).
+Evidence `06–10` và `14` gồm ảnh chụp giao diện Langfuse của project cá nhân, kèm output API để đối chiếu trace ID, correlation ID, observation và prompt version. Các tiêu chí chụp nằm tại [CAPTURE_LANGFUSE.md](evidence/CAPTURE_LANGFUSE.md).
 
 ## 3. Kết quả kỹ thuật
 
@@ -95,12 +96,13 @@ Ba alert symptom based trong [alert_rules.yaml](../config/alert_rules.yaml): P95
 - **Metrics → Logs → Traces:** P95 2652 ms trong cửa sổ challenge → log `req-cf6b725c` có latency 2652 ms và trace ID → trace đó chỉ ra retrieval 2501 ms, generation 151 ms → kết luận retrieval chậm là nguyên nhân.
 - **Vai trò LLMOps:** prompt version giúp truy vết và rollback; token/cost cho biết tác động của prompt đến tài nguyên; SLO và error budget định lượng mức dịch vụ chấp nhận được.
 - **Điều học được:** P95 của request và độ dài retrieval span cần được xem cùng nhau; ở đây request vượt ngưỡng cảnh báo 2000 ms dù TTFT, lỗi và SLO 3000 ms vẫn bình thường. So sánh cùng workload trước và sau khi tắt incident giúp xác nhận biện pháp xử lý.
-- **Giới hạn hiện tại:** ảnh UI Langfuse 06–10 và 14 cùng commit SHA cuối cần bổ sung trước khi nộp chính thức. Dữ liệu challenge gốc luôn giữ ngoài Git.
+- **Giới hạn hiện tại:** workload lab có cỡ mẫu nhỏ; cảnh báo `duration: 5m` chưa được quan sát phát ra vì challenge chỉ kéo dài 13 giây. File challenge gốc được khôi phục với cùng SHA-256 đã ghi ở mục 7 và luôn được giữ ngoài Git.
 
 ## 9. Checklist trước khi nộp
 
 - [x] CP1–CP3 có source, tests, validators, dashboard và chuỗi metric → log → trace từ challenge chính thức.
 - [x] 13 trace thuộc project Langfuse cá nhân, liên kết log bằng correlation ID; prompt v1/v2 và rollback được API xác minh.
 - [x] Evidence hiện có dùng đường dẫn tương đối, không chứa key/secret hoặc PII thô.
-- [ ] Chụp ảnh UI Langfuse cho trace list, waterfall, metadata, prompt versions, rollback và incident trace theo [CAPTURE_LANGFUSE.md](evidence/CAPTURE_LANGFUSE.md).
-- [ ] Chốt commit SHA, chạy lại validators trên commit cuối và nộp URL/SHA qua LMS/Codelabs.
+- [x] Ảnh UI Langfuse cho trace list, waterfall, metadata, prompt versions, rollback và incident trace theo [CAPTURE_LANGFUSE.md](evidence/CAPTURE_LANGFUSE.md).
+- [x] Tests, log validator, dashboard validator và submission scan đều đạt trên nội dung chuẩn bị nộp; chạy lại sau commit cuối.
+- [ ] Nộp URL repo và commit SHA cuối qua LMS/Codelabs.

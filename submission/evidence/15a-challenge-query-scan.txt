@@ -1,0 +1,5 @@
+﻿Git candidates scanned: 85
+Forbidden path matches: 0
+Langfuse key matches: 0
+Private challenge query matches: 0
+Submission scan: PASS

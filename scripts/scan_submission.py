@@ -32,7 +32,8 @@ def main() -> int:
 
     challenge_messages: list[bytes] = []
     challenge_path = ROOT / "config" / "challenge.json"
-    if challenge_path.exists():
+    challenge_available = challenge_path.exists()
+    if challenge_available:
         from app.challenge import load_challenge
 
         challenge_messages = [
@@ -54,7 +55,10 @@ def main() -> int:
     print(f"Git candidates scanned: {checked}")
     print(f"Forbidden path matches: {sum(item.startswith('Forbidden path') for item in violations)}")
     print(f"Langfuse key matches: {sum(item.startswith('Langfuse key') for item in violations)}")
-    print(f"Private challenge query matches: {sum(item.startswith('Private challenge') for item in violations)}")
+    if challenge_available:
+        print(f"Private challenge query matches: {sum(item.startswith('Private challenge') for item in violations)}")
+    else:
+        print("Private challenge query scan: SKIPPED (config/challenge.json unavailable)")
     if violations:
         print("Affected paths:")
         for item in violations:
